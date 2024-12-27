@@ -2,8 +2,7 @@ version: '3'
 services:
   nginx:
     image: nginx:latest
-    ports:
-      - "8443:8443"
+    network_mode: host
     volumes:
       - ./conf.d:/etc/nginx/conf.d
     restart: always
