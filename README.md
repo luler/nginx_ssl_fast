@@ -9,7 +9,7 @@
 1. 修改conf.d下的default.conf，修改或增加server配置
 ```
 server {
-	listen 8443 ssl default_server;
+	listen 8443 ssl default_server reuseport;
 	#server_name test.com; # 将 your_domain.com 替换为你的域名或 IP 地址
 
 	ssl_certificate /etc/nginx/conf.d/certs/justfortest.com.pem;
