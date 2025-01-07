@@ -24,7 +24,7 @@ server {
 	}
 }
 ```
-2. 修改conf.d/certs下的自定义证书（可选）
+2. 修改conf.d/certs下的自定义证书,可以使用mkcert工具快速生成自定义证书：https://github.com/FiloSottile/mkcert （可选）
 3. 修改docker-compose.yml文件的端口映射（可选）
 
 #### 启动与使用
