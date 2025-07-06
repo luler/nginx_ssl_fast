@@ -1,0 +1,30 @@
+server {
+    listen 9443 ssl default_server;
+    server_name _; # 默认匹配所有ip、域名请求
+
+    # 为默认 server 块添加 SSL 证书配置
+    ssl_certificate /etc/nginx/conf.d/certs/justfortest.com.pem;
+    ssl_certificate_key /etc/nginx/conf.d/certs/justfortest.com-key.pem;
+
+    return 444; # 特殊状态码，会关闭连接而不发送响应头
+}
+
+server {
+	listen 9443 ssl;
+	server_name portainer.aimm.site; # 如果需要指定域名访问，修改为你的域名
+
+    #设置证书
+	ssl_certificate /etc/nginx/conf.d/certs/justfortest.com.pem;
+	ssl_certificate_key /etc/nginx/conf.d/certs/justfortest.com-key.pem;
+
+    client_max_body_size 100M;  # 设置为100MB
+
+	location / {
+		proxy_pass http://host.docker.internal:9000;
+		proxy_set_header Host $http_host;
+		proxy_set_header X-Real-IP $remote_addr;
+		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		proxy_set_header X-Forwarded-Proto $scheme;
+	}
+}
+
